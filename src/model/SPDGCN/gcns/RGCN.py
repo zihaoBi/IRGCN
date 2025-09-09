@@ -45,7 +45,6 @@ class GCN(nn.Module):
 
     def forward(self, x, A):
         if self.metric == 'LCM':
-            x = functional.sym_powm.apply(x, torch.tensor(0.2))
             x = LCM_Aggregation(x, A)
             D = torch.diag_embed(torch.log(torch.diagonal(x, dim1=-2, dim2=-1)))
             W = cayley_map(self.W)
